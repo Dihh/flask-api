@@ -1,9 +1,15 @@
+# pylint: disable=broad-exception-caught
+
 """ Todo controller Module
 This module is responsible of all todos communications
 """
 
+from flask import make_response
 from flask.views import MethodView
-from flask_smorest import Blueprint
+from flask_smorest import Blueprint, abort
+from src.exceptions.todo_exception import TodoException
+from src.exceptions import default_error_structure
+from src.schemas.error_schema import ErrorSchema
 from src.schemas.todo_schema import TodoSchema
 
 from src.models.todo import Todo
@@ -15,9 +21,19 @@ blp = Blueprint("todos", __name__, description="aaa")
 class TodoController(MethodView):
     """Todo controller
     """
+    @blp.response(500, ErrorSchema)
     @blp.response(200, TodoSchema(many=True))
     def get(self):
         """
         return: list of todos with id and title
         """
-        return Todo.get_todos()
+        try:
+            return Todo.get_todos()
+        except TodoException as error:
+            error_message = default_error_structure(str(error))
+            response = make_response(error_message, 500)
+            abort(response)
+        except Exception:
+            error_message = default_error_structure("Internal Server Error")
+            response = make_response(error_message, 500)
+            abort(response)
