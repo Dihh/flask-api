@@ -1,0 +1,1 @@
+docker-compose exec backend bash -c "export PYTHONPATH=/app && py.test -sv"
