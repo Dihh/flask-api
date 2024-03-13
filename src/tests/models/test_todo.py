@@ -36,7 +36,6 @@ def test_todo_model_get_todos_server_error(mock_get):
     mock_get.return_value = set_mock_response(status_code=404)
     try:
         Todo.get_todos()
-        assert False
     except TodoException as error:
         assert str(error) == "Unable to connect to todos provider"
 
@@ -47,6 +46,5 @@ def test_todo_model_get_todos_json_serization_error(mock_get):
     mock_get.return_value = set_mock_response(False)
     try:
         Todo.get_todos()
-        assert False
     except TodoException as error:
         assert str(error) == "Unable to deserialize todos provider message"

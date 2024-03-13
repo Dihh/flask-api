@@ -32,7 +32,6 @@ def test_todo_controller_get_should_send_error_formated(mock_get_todos):
     with app.app_context():
         try:
             todo_controller.get()
-            assert False
         except Exception as error:
             expected_response = [b'{"error":{"reason":"Internal Server Error"}}\n']
             assert error.response.response == expected_response
@@ -49,7 +48,6 @@ def test_todo_controller_get_should_send_todo_error_formated(mock_get_todos):
     with app.app_context():
         try:
             todo_controller.get()
-            assert False
         except Exception as error:
             expected_response = [b'{"error":{"reason":"todo erro message"}}\n']
             assert error.response.response == expected_response

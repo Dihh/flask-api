@@ -1,1 +1,1 @@
-docker-compose exec backend bash -c "export PYTHONPATH=/app && py.test -sv"
+docker-compose exec backend bash -c "python -m pytest --cov-report html src/tests --cov=./"
