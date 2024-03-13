@@ -7,8 +7,7 @@ This module is responsible for all todos data like getting todos list from exter
 import requests
 
 class Todo():
-    """
-    Todo model
+    """Todo model
     """
 
     api_url = 'https://jsonplaceholder.typicode.com/todos'
