@@ -2,6 +2,8 @@
 
 from unittest.mock import patch
 
+import pytest
+
 from src.controllers.todo_controller import TodoController
 from src.models.todo import Todo as TodoModel
 
@@ -14,3 +16,7 @@ def test_todo_controller_get(mock_get):
     todos = todo_controller.get()
     expected_response = [{"id": "1", "title": "title"}]
     assert todos == expected_response
+
+@pytest.mark.skip(reason="will be implemented")
+def test_todo_controller_get_should_send_error_formated():
+    """Todo controller get() should return the correct error message when errors occur"""
