@@ -1,5 +1,3 @@
-# pylint: disable=broad-exception-caught
-
 """ Todo controller Module
 This module is responsible of all todos communications
 """

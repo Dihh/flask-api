@@ -1,3 +1,5 @@
+# pylint: disable=missing-function-docstring, invalid-name
+
 """empty message
 
 Revision ID: 575fec2e189f

@@ -38,20 +38,24 @@ def set_db(app):
     app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("DATABASE_URL", "sqlite:///data.db")
     db.init_app(app)
     Migrate(app, db)
-    
+
 def set_api(app):
     """
     set api configurations
     """
     api = Api(app)
-    api.spec.components.security_scheme("bearerAuth", {"type": "http", "scheme": "bearer", "bearerFormat": "JWT"})
+    api.spec.components.security_scheme("bearerAuth", {
+        "type": "http", "scheme": "bearer", "bearerFormat": "JWT"
+    })
     return api
 
 def set_jwt(app):
     """
     set jwt configurations
     """
-    app.config["JWT_SECRET_KEY"] = os.getenv("JWT_SECRET_KEY", "cc878440-91e0-4a07-b893-ef83b97a3256")
+    app.config["JWT_SECRET_KEY"] = os.getenv(
+        "JWT_SECRET_KEY", "cc878440-91e0-4a07-b893-ef83b97a3256"
+    )
     jwt = JWTManager(app)
     config_jwt(jwt)
 
@@ -74,5 +78,5 @@ def create_app():
     api = set_api(app)
     set_jwt(app)
     register_blueprint(api)
-    
+
     return app

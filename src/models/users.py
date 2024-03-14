@@ -1,4 +1,4 @@
-# pylint: disable=too-few-public-methods, redefined-builtin
+# pylint: disable=redefined-builtin
 
 """ User model Module
 This module is responsible for manager all users data.

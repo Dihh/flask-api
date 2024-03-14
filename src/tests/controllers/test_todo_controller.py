@@ -1,6 +1,5 @@
 # pylint: disable=missing-module-docstring
 # pylint: disable=no-member
-# pylint: disable=broad-exception-caught
 
 from unittest.mock import patch
 

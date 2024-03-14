@@ -1,5 +1,3 @@
-# pylint: disable=broad-exception-caught
-
 """ User controller Module
 This module is responsible of all users communications
 """

@@ -1,10 +1,18 @@
+# pylint: disable=unused-argument
+
+""" jwt module
+reset some jwt configurations.
+"""
+
 from flask import jsonify
 
 from src.exceptions import default_error_structure
 
+def config_jwt(jwt):
+    """
+    reset jwt default returns messages.
+    """
 
-def config_jwt(jwt):    
-    
     @jwt.expired_token_loader
     def expired_token_callback(jwt_header, jwt_payload):
         return (
