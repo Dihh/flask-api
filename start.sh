@@ -1,4 +1,4 @@
 #! /bin/bash
 
 flask db upgrade &&
-flask run --host 0.0.0.0 --debug
+flask run --host 0.0.0.0 --port=$PORT --debug

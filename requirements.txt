@@ -10,3 +10,4 @@ Flask-SQLAlchemy==3.1.1
 passlib==1.7.4
 Flask-JWT-Extended==4.6.0
 Flask-Migrate==4.0.7
+waitress==3.0.0
