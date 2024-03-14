@@ -4,8 +4,10 @@
 This module is responsible of all todos communications
 """
 
+import logging
 from flask import make_response
 from flask.views import MethodView
+from flask_jwt_extended import jwt_required
 from flask_smorest import Blueprint, abort
 from src.exceptions.todo_exception import TodoException
 from src.exceptions import default_error_structure
@@ -29,12 +31,17 @@ class TodoController(MethodView):
         return: list of todos with id and title
         """
         try:
-            return Todo.get_todos()
+            todos = Todo.get_todos()
+            todos_response = [todo.__dict__ for todo in todos]
+            logging.info("%s - GET /todo 200", todos_response)
+            return todos_response
         except TodoException as error:
             error_message = default_error_structure(str(error))
             response = make_response(error_message, 500)
+            logging.info("%s - GET /todo 500", error_message)
             abort(response)
         except Exception:
             error_message = default_error_structure("Internal Server Error")
             response = make_response(error_message, 500)
+            logging.info("%s - GET /todo 500", error_message)
             abort(response)

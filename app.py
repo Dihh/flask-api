@@ -1,6 +1,7 @@
 # pylint: disable=missing-module-docstring
 
 import os
+import logging
 from flask import Flask
 from flask_smorest import Api
 from flask_jwt_extended import JWTManager
@@ -8,9 +9,13 @@ from flask_jwt_extended import JWTManager
 from src.controllers.user_controller import blp as UserController
 from db import db
 import src.models # pylint: disable=unused-import
-
-
 from src.controllers.todo_controller import blp as TodoController
+
+logging.basicConfig(
+    level=logging.DEBUG,
+    format="%(asctime)s %(levelname)s %(message)s",
+    datefmt="%Y-%m-%d %H:%M:%S"
+)
 
 def create_app():
     """
