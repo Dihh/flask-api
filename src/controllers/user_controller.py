@@ -2,7 +2,6 @@
 This module is responsible of all users communications
 """
 
-import logging
 from flask import make_response
 from flask.views import MethodView
 from flask_smorest import Blueprint, abort
@@ -63,5 +62,4 @@ class UserController(MethodView):
             error_message = default_error_structure("Unable to save this user")
             response = make_response(error_message, 422)
             abort(response)
-        user_info = {"user": user_data["user"], "id": user.id}
         return user, 201

@@ -2,7 +2,6 @@
 This module is responsible of all todos communications
 """
 
-import logging
 from flask import make_response
 from flask.views import MethodView
 from flask_jwt_extended import jwt_required
@@ -30,8 +29,7 @@ class TodoController(MethodView):
         """
         try:
             todos = Todo.get_todos()
-            todos_response = [todo.__dict__ for todo in todos]
-            return todos_response
+            return todos
         except TodoException as error:
             error_message = default_error_structure(str(error))
             response = make_response(error_message, 500)
