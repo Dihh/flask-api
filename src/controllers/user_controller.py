@@ -13,10 +13,8 @@ from passlib.hash import pbkdf2_sha256
 from flask_jwt_extended import create_access_token
 
 from db import db
-from src.schemas.auth_schema import SystemAuthSchema
-from src.schemas.error_schema import SystemErrorSchema
+from src.schemas import SystemAuthSchema, SystemErrorSchema, UserSchema
 from src.exceptions import default_error_structure
-from src.schemas.schemas import UserSchema
 from src.models.users import UserModel
 
 blp = Blueprint("users", __name__)

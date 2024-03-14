@@ -4,15 +4,16 @@
 This module is responsible for all todos data like getting todos list from exterrnal server.
 """
 
+import os
 import requests
 
-from src.exceptions.todo_exception import TodoException
+from src.exceptions import TodoException
 
 class Todo():
     """Todo model
     """
 
-    api_url = 'https://jsonplaceholder.typicode.com/todos'
+    api_url = os.getenv("TODOS_PROVIDER", "https://jsonplaceholder.typicode.com/todos")
 
     def __init__(self, id, title):
         self.id = id
@@ -24,7 +25,10 @@ class Todo():
         :return: list of todos objects, should,
         handle server and serialization errors.
         """
-        response = requests.get(Todo.api_url, timeout=3)
+        try:
+            response = requests.get(Todo.api_url, timeout=3)
+        except Exception:
+            raise TodoException("Unable to connect to todos provider") from Exception
         if not response or response.status_code != 200:
             raise TodoException("Unable to connect to todos provider")
         response_json = response.json()

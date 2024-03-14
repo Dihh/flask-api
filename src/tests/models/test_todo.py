@@ -3,7 +3,7 @@
 
 from unittest.mock import patch, Mock
 
-from src.exceptions.todo_exception import TodoException
+from src.exceptions import TodoException
 
 from src.models.todo import Todo
 

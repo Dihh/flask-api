@@ -9,10 +9,9 @@ from flask import make_response
 from flask.views import MethodView
 from flask_jwt_extended import jwt_required
 from flask_smorest import Blueprint, abort
-from src.exceptions.todo_exception import TodoException
+from src.exceptions import TodoException
 from src.exceptions import default_error_structure
-from src.schemas.error_schema import SystemErrorSchema
-from src.schemas.schemas import TodoSchema
+from src.schemas import SystemErrorSchema, TodoSchema
 
 from src.models.todo import Todo
 
@@ -24,6 +23,7 @@ class TodoController(MethodView):
     """Todo controller
     """
     @jwt_required()
+    @blp.doc(security=[{"bearerAuth": []}])
     @blp.response(500, SystemErrorSchema)
     @blp.response(200, TodoSchema(many=True))
     def get(self):

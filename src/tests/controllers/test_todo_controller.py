@@ -7,7 +7,7 @@ from unittest.mock import patch
 from flask_jwt_extended import create_access_token
 
 from app import create_app
-from src.exceptions.todo_exception import TodoException
+from src.exceptions import TodoException
 from src.controllers.todo_controller import TodoController
 from src.models.todo import Todo as TodoModel
 
