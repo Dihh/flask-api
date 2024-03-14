@@ -1,7 +1,7 @@
 # pylint: disable=too-few-public-methods, redefined-builtin
 
 """ Todo model Module
-This module is responsible for all todos data like getting todos list from exterrnal serverr
+This module is responsible for all todos data like getting todos list from exterrnal server.
 """
 
 import requests

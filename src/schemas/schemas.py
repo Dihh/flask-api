@@ -1,4 +1,4 @@
-"""Todo schema module
+"""Schemas module
 """
 from marshmallow import Schema, fields
 
@@ -12,3 +12,4 @@ class TodoSchema(Schema):
     """
     id = fields.Int()
     title = fields.String()
+

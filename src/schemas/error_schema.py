@@ -8,7 +8,7 @@ class ErrorMEssageSchema(Schema):
     """
     reason = fields.String()
 
-class ErrorSchema(Schema):
+class SystemErrorSchema(Schema):
     """ErrorSchema schema
     This schema should serialize errors response as 
     {

@@ -9,19 +9,19 @@ from flask.views import MethodView
 from flask_smorest import Blueprint, abort
 from src.exceptions.todo_exception import TodoException
 from src.exceptions import default_error_structure
-from src.schemas.error_schema import ErrorSchema
-from src.schemas.todo_schema import TodoSchema
+from src.schemas.error_schema import SystemErrorSchema
+from src.schemas.schemas import TodoSchema
 
 from src.models.todo import Todo
 
 
-blp = Blueprint("todos", __name__, description="aaa")
+blp = Blueprint("todos", __name__)
 
 @blp.route("/todo")
 class TodoController(MethodView):
     """Todo controller
     """
-    @blp.response(500, ErrorSchema)
+    @blp.response(500, SystemErrorSchema)
     @blp.response(200, TodoSchema(many=True))
     def get(self):
         """

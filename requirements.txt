@@ -6,3 +6,5 @@ mock==5.1.0
 pylint==3.1.0
 marshmallow==3.21.1
 pytest-cov==4.1.0
+Flask-SQLAlchemy==3.1.1
+passlib==1.7.4
