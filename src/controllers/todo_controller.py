@@ -31,15 +31,12 @@ class TodoController(MethodView):
         try:
             todos = Todo.get_todos()
             todos_response = [todo.__dict__ for todo in todos]
-            logging.info("%s - GET /todo 200", todos_response)
             return todos_response
         except TodoException as error:
             error_message = default_error_structure(str(error))
             response = make_response(error_message, 500)
-            logging.info("%s - GET /todo 500", error_message)
             abort(response)
         except Exception:
             error_message = default_error_structure("Internal Server Error")
             response = make_response(error_message, 500)
-            logging.info("%s - GET /todo 500", error_message)
             abort(response)

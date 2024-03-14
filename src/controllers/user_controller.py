@@ -32,12 +32,10 @@ class UserAuthController(MethodView):
 
         if user and pbkdf2_sha256.verify(user_data["password"], user.password):
             access_token = create_access_token(identity=user.id)
-            logging.info("%s - POST /login 200", user.user)
             return {"access_token": access_token}
 
         error_message = default_error_structure("Invalid credentials.")
         response = make_response(error_message, 401)
-        logging.info("%s - POST /login 401", user_data["user"])
         abort(response)
 
 @blp.route("/register")
@@ -55,7 +53,6 @@ class UserController(MethodView):
         if UserModel.query.filter(UserModel.user == user_data["user"]).first():
             error_message = default_error_structure("User already exists")
             response = make_response(error_message, 409)
-            logging.info("%s - POST /register 409", user_data["user"])
             abort(response)
 
         user = UserModel(user=user_data["user"], password=pbkdf2_sha256.hash(user_data["password"]))
@@ -65,8 +62,6 @@ class UserController(MethodView):
         except SQLAlchemyError:
             error_message = default_error_structure("Unable to save this user")
             response = make_response(error_message, 422)
-            logging.info("%s - POST /register 422", user_data["user"])
             abort(response)
         user_info = {"user": user_data["user"], "id": user.id}
-        logging.info("%s - POST /register 201", user_info)
         return user, 201

@@ -2,7 +2,7 @@
 
 import os
 import logging
-from flask import Flask
+from flask import Flask, request
 from flask_migrate import Migrate
 from flask_smorest import Api
 from flask_jwt_extended import JWTManager
@@ -67,6 +67,23 @@ def register_blueprint(api: Api) -> None:
     api.register_blueprint(UserController)
 
 
+def sef_after_request(app: Flask):
+    """
+    set app after request
+    """
+    @app.after_request
+    def after_request(response):
+        """
+        log request information and response data after each request
+        """
+        method = request.method
+        path = request.path
+        status_code = response.status_code
+        raw_response = response.response
+        logging.info("%s %s : %s - %s", method, path, status_code, raw_response )
+        return response
+
+
 def create_app() -> Flask:
     """
     initial function with all the information to create the application and database communication
@@ -78,5 +95,6 @@ def create_app() -> Flask:
     api = set_api(app)
     set_jwt(app)
     register_blueprint(api)
+    sef_after_request(app)
 
     return app
