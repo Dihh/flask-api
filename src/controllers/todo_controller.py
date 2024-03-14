@@ -21,6 +21,7 @@ blp = Blueprint("todos", __name__)
 class TodoController(MethodView):
     """Todo controller
     """
+    @jwt_required()
     @blp.response(500, SystemErrorSchema)
     @blp.response(200, TodoSchema(many=True))
     def get(self):
