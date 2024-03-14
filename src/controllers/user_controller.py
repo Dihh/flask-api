@@ -9,8 +9,10 @@ from flask.views import MethodView
 from flask_smorest import Blueprint, abort
 from sqlalchemy.exc import SQLAlchemyError
 from passlib.hash import pbkdf2_sha256
+from flask_jwt_extended import create_access_token
 
 from db import db
+from src.schemas.auth_schema import SystemAuthSchema
 from src.schemas.error_schema import SystemErrorSchema
 from src.exceptions import default_error_structure
 from src.schemas.schemas import UserSchema
@@ -18,6 +20,27 @@ from src.models.users import UserModel
 
 
 blp = Blueprint("users", __name__)
+
+@blp.route("/login")
+class UserAuthController(MethodView):
+    """User controller
+    """
+    @blp.arguments(UserSchema)
+    @blp.response(422, SystemErrorSchema)
+    @blp.response(200, SystemAuthSchema)
+    def post(self, user_data):
+        """
+        return: list of todos with id and title
+        """
+        user = UserModel.query.filter(UserModel.user == user_data["user"]).first()
+
+        if user and pbkdf2_sha256.verify(user_data["password"], user.password):
+            access_token = create_access_token(identity=user.id)
+            return {"access_token": access_token}
+
+        error_message = default_error_structure(str("Invalid credentials."))
+        response = make_response(error_message, 401)
+        abort(response)
 
 @blp.route("/register")
 class UserController(MethodView):
@@ -31,7 +54,6 @@ class UserController(MethodView):
         """
         return: list of todos with id and title
         """
-
         if UserModel.query.filter(UserModel.user == user_data["user"]).first():
             error_message = default_error_structure(str("User already exists"))
             response = make_response(error_message, 409)

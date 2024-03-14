@@ -3,9 +3,12 @@
 import os
 from flask import Flask
 from flask_smorest import Api
+from flask_jwt_extended import JWTManager
+
 from src.controllers.user_controller import blp as UserController
 from db import db
 import src.models # pylint: disable=unused-import
+
 
 from src.controllers.todo_controller import blp as TodoController
 
@@ -29,6 +32,9 @@ def create_app():
         db.create_all()
 
     api = Api(app)
+
+    app.config["JWT_SECRET_KEY"] = "cc878440-91e0-4a07-b893-ef83b97a3256"
+    JWTManager(app)
 
     api.register_blueprint(TodoController)
     api.register_blueprint(UserController)
