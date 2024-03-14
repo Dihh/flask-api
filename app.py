@@ -3,6 +3,7 @@
 import os
 import logging
 from flask import Flask
+from flask_migrate import Migrate
 from flask_smorest import Api
 from flask_jwt_extended import JWTManager
 from jwt_config import config_jwt
@@ -34,8 +35,7 @@ def create_app():
     app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("DATABASE_URL", "sqlite:///data.db")
     db.init_app(app)
 
-    with app.app_context():
-        db.create_all()
+    Migrate(app, db)
 
     api = Api(app)
 

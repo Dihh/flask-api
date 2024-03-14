@@ -1,1 +1,3 @@
-docker-compose exec backend bash -c "export DATABASE_URL=sqlite:///test.db && python -m pytest -sv --cov-report html src/tests --cov=./"
+#! /bin/bash
+
+docker-compose exec backend bash -c "bash run_tests.sh"
