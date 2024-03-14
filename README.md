@@ -1,5 +1,7 @@
 # Cleaning company
 
+# [For live preview click here](https://flask-todo-api-jinc6jghnq-uc.a.run.app/swagger-ui)
+
 This system was developed to be used as a todos API, so... lets see how it works:
 
 By default SQLite database will be used and connected by a Python (flask) backend. This database can be easily changed using DATABASE_URL environment variables.
