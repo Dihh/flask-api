@@ -5,9 +5,12 @@ This module is responsible for all todos data like getting todos list from exter
 """
 
 import os
+from typing import Union, Dict, List
 import requests
 
 from src.exceptions import TodoException
+
+TodoDict = Dict[str, Union[str, int]]
 
 class Todo():
     """Todo model
@@ -22,8 +25,8 @@ class Todo():
     @staticmethod
     def get_todos():
         """
-        :return: list of todos objects, should,
-        handle server and serialization errors.
+        :return: list of todos objects, should fetch provider server data
+        and handle serialization and connections errors.
         """
         try:
             response = requests.get(Todo.api_url, timeout=3)
@@ -31,7 +34,7 @@ class Todo():
             raise TodoException("Unable to connect to todos provider") from Exception
         if not response or response.status_code != 200:
             raise TodoException("Unable to connect to todos provider")
-        response_json = response.json()
+        response_json: List[TodoDict] = response.json()
         try:
             response_filtered_objects = response_json[:5]
         except TypeError:

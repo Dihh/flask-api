@@ -5,10 +5,11 @@ reset some jwt configurations.
 """
 
 from flask import jsonify
+from flask_jwt_extended import JWTManager
 
 from src.exceptions import default_error_structure
 
-def config_jwt(jwt):
+def config_jwt(jwt: JWTManager):
     """
     reset jwt default returns messages.
     """

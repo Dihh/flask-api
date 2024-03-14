@@ -19,7 +19,7 @@ logging.basicConfig(
     datefmt="%Y-%m-%d %H:%M:%S"
 )
 
-def set_api_config(app):
+def set_api_config(app: Flask) -> None:
     """
     set app configurations
     """
@@ -31,7 +31,7 @@ def set_api_config(app):
     app.config["OPENAPI_SWAGGER_UI_PATH"] = "/swagger-ui"
     app.config["OPENAPI_SWAGGER_UI_URL"] = "https://cdn.jsdelivr.net/npm/swagger-ui-dist/"
 
-def set_db(app):
+def set_db(app: Flask) -> None:
     """
     set database configurations
     """
@@ -39,7 +39,7 @@ def set_db(app):
     db.init_app(app)
     Migrate(app, db)
 
-def set_api(app):
+def set_api(app: Flask) -> Api:
     """
     set api configurations
     """
@@ -49,7 +49,7 @@ def set_api(app):
     })
     return api
 
-def set_jwt(app):
+def set_jwt(app: Flask) -> None:
     """
     set jwt configurations
     """
@@ -59,7 +59,7 @@ def set_jwt(app):
     jwt = JWTManager(app)
     config_jwt(jwt)
 
-def register_blueprint(api):
+def register_blueprint(api: Api) -> None:
     """
     register blueprints on api
     """
@@ -67,7 +67,7 @@ def register_blueprint(api):
     api.register_blueprint(UserController)
 
 
-def create_app():
+def create_app() -> Flask:
     """
     initial function with all the information to create the application and database communication
     """
