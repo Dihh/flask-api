@@ -5,6 +5,7 @@ import logging
 from flask import Flask
 from flask_smorest import Api
 from flask_jwt_extended import JWTManager
+from jwt_config import config_jwt
 
 from src.controllers.user_controller import blp as UserController
 from db import db
@@ -39,7 +40,9 @@ def create_app():
     api = Api(app)
 
     app.config["JWT_SECRET_KEY"] = "cc878440-91e0-4a07-b893-ef83b97a3256"
-    JWTManager(app)
+    jwt = JWTManager(app)
+
+    config_jwt(jwt)
 
     api.register_blueprint(TodoController)
     api.register_blueprint(UserController)

@@ -39,7 +39,7 @@ class UserAuthController(MethodView):
             logging.info("%s - POST /login 200", user.user)
             return {"access_token": access_token}
 
-        error_message = default_error_structure(str("Invalid credentials."))
+        error_message = default_error_structure("Invalid credentials.")
         response = make_response(error_message, 401)
         logging.info("%s - POST /login 401", user_data["user"])
         abort(response)
@@ -57,7 +57,7 @@ class UserController(MethodView):
         return: list of todos with id and title
         """
         if UserModel.query.filter(UserModel.user == user_data["user"]).first():
-            error_message = default_error_structure(str("User already exists"))
+            error_message = default_error_structure("User already exists")
             response = make_response(error_message, 409)
             logging.info("%s - POST /register 409", user_data["user"])
             abort(response)
@@ -67,7 +67,7 @@ class UserController(MethodView):
             db.session.add(user)
             db.session.commit()
         except SQLAlchemyError:
-            error_message = default_error_structure(str("Unable to save this user"))
+            error_message = default_error_structure("Unable to save this user")
             response = make_response(error_message, 422)
             logging.info("%s - POST /register 422", user_data["user"])
             abort(response)
